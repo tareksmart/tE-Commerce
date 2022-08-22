@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'E commerce',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-        primaryColor: Colors.red,
+        primaryColor: Color(0xFFDB3022),
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.subtitle1,
           focusedBorder: OutlineInputBorder(
