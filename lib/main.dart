@@ -14,9 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E commerce',
-      theme: ThemeData(
+      theme: ThemeData(primaryColor: Color(0xFFDB3022),
+        buttonTheme: ButtonThemeData(
+            buttonColor: Theme.of(context).primaryColor),
         scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-        primaryColor: Color(0xFFDB3022),
+
+
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: Theme.of(context).textTheme.subtitle1,
           focusedBorder: OutlineInputBorder(
@@ -30,7 +33,10 @@ class MyApp extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
             borderSide: BorderSide(color: Colors.blueGrey),
-          )
+          ),errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.0),
+          borderSide: BorderSide(color: Colors.red),
+        )
         ),
       ),
       onGenerateRoute: onGenerate,

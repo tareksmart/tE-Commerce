@@ -1,22 +1,24 @@
+import 'package:ecommerce/utilities/enum.dart';
 import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../utilities/strings.dart';
 
-class LogIn extends StatefulWidget {
-  const LogIn({Key? key}) : super(key: key);
+class AuthPage extends StatefulWidget {
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
-  State<LogIn> createState() => _LogInState();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _LogInState extends State<LogIn> {
+class _AuthPageState extends State<AuthPage> {
   final _globalKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  dynamic _authType=AuthFormType;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false/*تجنب تجاوز القاع بسبب ظهور لوحةالمفاتيح*/,
       body: SafeArea(
           //layout بتاخد المساحه مابين statusbar and bottombar
           child: Padding(
@@ -27,7 +29,7 @@ class _LogInState extends State<LogIn> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                logIn,
+                _authType==AuthFormType.login? logIn:register,
                 style: Theme.of(context).textTheme.headline3,
               ),
               const SizedBox(
@@ -36,45 +38,64 @@ class _LogInState extends State<LogIn> {
               TextFormField(
                 controller: _emailController,
                 validator: (val) =>
-                    val!.isEmpty ? 'Please Enter Your Email' : '',
+                    val!.isEmpty ? 'Please Enter Your Email' : null,
                 decoration: const InputDecoration(
                     hintText: 'enter email', labelText: 'Email'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               TextFormField(
                 controller: _passwordController,
-                validator: (val) => val!.isEmpty ? 'Please enter password' : '',
+                validator: (val) => val!.isEmpty ? 'Please enter password' : null,
                 decoration: const InputDecoration(
                     hintText: 'enter passowrd', labelText: 'password'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
+
               Align(
                 alignment: Alignment.topRight,
                 child: InkWell(
-                  child: Text('Forgot Your Password?'),
+                  child: Text(_authType==AuthFormType.login?'Forgot Your Password?':''),
                   onTap: () {},
                 ),
               ),
-              MainButton(onTap: () {}, text: logIn),
-              SizedBox(
+              MainButton(onTap: () {
+                if(_globalKey.currentState!.validate())
+                  debugPrint('authentivated');
+              },
+                  text:_authType==AuthFormType.login? logIn:register),
+              const SizedBox(
                 height: 16,
               ),
-              Align(
+               Align(
                   alignment: Alignment.center,
-                  child: InkWell(child: Text('Don\'t have an account?Register'))),
+                  child: InkWell(
+                      child: Text(_authType==AuthFormType.login? 'Don\'t have an account?Register':'Have an Account login'),
+                  onTap: (){
+                    setState(() {
+                      if(_authType==AuthFormType.register)
+                        {
+                          _authType=AuthFormType.login;
+
+                        }
+                      else
+                        {
+                          _authType=AuthFormType.register;
+                        }
+                    });
+                  })),
               Spacer(),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  'Or Login With Social Account',
+                child: Text(_authType==AuthFormType.login?
+                  'Or Login With Social Account':'Or Register With Social Account',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
-              SizedBox(
+              const  SizedBox(
                 height: 16,
               ),
               Row(
@@ -86,9 +107,9 @@ class _LogInState extends State<LogIn> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.white),
-                    child: Icon(Icons.sensor_occupied_sharp),
+                    child:const Icon(Icons.sensor_occupied_sharp),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 16,
                   ),
                   Container(
@@ -97,7 +118,7 @@ class _LogInState extends State<LogIn> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.white),
-                    child: Icon(Icons.adb_outlined),
+                    child: const Icon(Icons.adb_outlined),
                   )
                 ],
               ),
