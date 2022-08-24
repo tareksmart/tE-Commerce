@@ -11,17 +11,13 @@ class MainButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: ElevatedButton(
+      child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).primaryColor,
+      shape:RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      )) ,
+
         onPressed: onTap,
         child: Text(text),
-        style: ButtonStyle(shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            // Change your radius here
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        ),
-
 
       ),
     );

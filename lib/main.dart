@@ -14,30 +14,33 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'E commerce',
-      theme: ThemeData(primaryColor: Color(0xFFDB3022),
+      theme: ThemeData(
+        primaryColor:const Color(0xFFDB3022),
         buttonTheme: ButtonThemeData(
-            buttonColor: Theme.of(context).primaryColor),
-        scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-
-
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: Theme.of(context).textTheme.subtitle1,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: Colors.blueGrey),
+          buttonColor: const Color(0xFFDB3022),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: Colors.blueGrey),
-          ),errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: Colors.red),
-        )
         ),
+        scaffoldBackgroundColor: const Color(0xFFE5E5E5),
+        inputDecorationTheme: InputDecorationTheme(
+            labelStyle: Theme.of(context).textTheme.subtitle1,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide(color: Colors.blueGrey),
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide(color: Colors.blueGrey),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide(color: Colors.red),
+            )),
       ),
       onGenerateRoute: onGenerate,
       initialRoute: AppRoutes.logIn,

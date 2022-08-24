@@ -1,4 +1,5 @@
 import 'package:ecommerce/utilities/enum.dart';
+import 'package:ecommerce/utilities/routes.dart';
 import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,8 @@ class _AuthPageState extends State<AuthPage> {
   final _globalKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailFocusNode=FocusNode();
+  final _passFocusNode=FocusNode();
   dynamic _authType=AuthFormType;
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,9 @@ class _AuthPageState extends State<AuthPage> {
                 height: 64,
               ),
               TextFormField(
+                focusNode: _emailFocusNode,
+                onEditingComplete: ()=>FocusScope.of(context).requestFocus(_passFocusNode),
+                textInputAction: TextInputAction.next,
                 controller: _emailController,
                 validator: (val) =>
                     val!.isEmpty ? 'Please Enter Your Email' : null,
@@ -46,6 +52,7 @@ class _AuthPageState extends State<AuthPage> {
                 height: 16,
               ),
               TextFormField(
+                focusNode: _passFocusNode,
                 controller: _passwordController,
                 validator: (val) => val!.isEmpty ? 'Please enter password' : null,
                 decoration: const InputDecoration(
@@ -63,8 +70,10 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
               MainButton(onTap: () {
-                if(_globalKey.currentState!.validate())
+                if(_globalKey.currentState!.validate()) {
                   debugPrint('authentivated');
+                  Navigator.of(context).pushNamed(AppRoutes.bottomNavBar);
+                }
               },
                   text:_authType==AuthFormType.login? logIn:register),
               const SizedBox(
@@ -75,6 +84,9 @@ class _AuthPageState extends State<AuthPage> {
                   child: InkWell(
                       child: Text(_authType==AuthFormType.login? 'Don\'t have an account?Register':'Have an Account login'),
                   onTap: (){
+                        _emailController.clear();
+                        _passwordController.clear();
+                        _globalKey.currentState!.reset();
                     setState(() {
                       if(_authType==AuthFormType.register)
                         {
