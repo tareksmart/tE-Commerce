@@ -51,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.favorite_border),
+        icon:const Icon(Icons.favorite_border),
         title: "Favorite",
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -87,12 +87,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties(
+        itemAnimationProperties:const ItemAnimationProperties(
           // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
+          curve: Curves.easeInBack,
         ),
-        screenTransitionAnimation: ScreenTransitionAnimation(
+        screenTransitionAnimation:const ScreenTransitionAnimation(
           // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
