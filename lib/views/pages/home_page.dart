@@ -3,6 +3,43 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+  Widget _buildHeaderOfList(
+      {required String title,
+      required String discreption,
+      VoidCallback? tab,
+      required BuildContext context}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
+            ),
+            InkWell(
+              onTap: tab,
+              child: Text(
+                'View All',
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+          ],
+        ),
+        Text(
+          discreption,
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1!
+              .copyWith(color: Colors.grey),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +75,20 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+        const SizedBox(
+          height: 16,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            children: [
+              _buildHeaderOfList(
+                  title: 'Sale',
+                  discreption: 'Super Summer Sale',
+                  context: context)
+            ],
+          ),
+        ),const SizedBox(height: 8,)
       ],
     );
   }

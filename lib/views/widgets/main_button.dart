@@ -11,7 +11,7 @@ class MainButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 50,
-      child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).primaryColor,
+      child: ElevatedButton(style: ElevatedButton.styleFrom(onSurface: Theme.of(context).primaryColor,
       shape:RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       )) ,
