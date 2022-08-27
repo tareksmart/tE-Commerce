@@ -1,5 +1,8 @@
 import 'package:ecommerce/utilities/app_assets.dart';
+import 'package:ecommerce/views/widgets/list_item_home.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/product.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -79,16 +82,34 @@ class HomePage extends StatelessWidget {
           height: 16,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: Column(
             children: [
               _buildHeaderOfList(
                   title: 'Sale',
                   discreption: 'Super Summer Sale',
-                  context: context)
+                  context: context),
+              SizedBox(
+                height: 8,
+              ),
+              SizedBox(
+                height: 350,
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    //dummyProducts جايه من ملف ال product هى من خارج الكلاس
+                    children: dummyProducts
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListHomeItem(
+                                product: e,
+                              ),
+                            ))
+                        .toList()),
+              )
             ],
           ),
-        ),const SizedBox(height: 8,)
+        ),
+
       ],
     );
   }
