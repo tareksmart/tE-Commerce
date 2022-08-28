@@ -6,7 +6,7 @@ import '../../models/product.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-  Widget _buildHeaderOfList(
+  Widget _buildHeaderOfList(//header
       {required String title,
       required String discreption,
       VoidCallback? tab,
@@ -47,70 +47,94 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            Image.network(
-              AppAssets.homePageBanner,
-              width: double.infinity,
-              height: size.height * 0.4,
-              fit: BoxFit.cover,
-            ),
-            Opacity(
-              opacity: 0.5,
-              child: Container(
-                color: Colors.black,
-                width: double.infinity,
-                height: size.height * 0.4,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Text(
-                'Street Cloths',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-          child: Column(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.bottomLeft,
             children: [
-              _buildHeaderOfList(
-                  title: 'Sale',
-                  discreption: 'Super Summer Sale',
-                  context: context),
-              SizedBox(
-                height: 8,
+              Image.asset('assets/images/pexels-photo-911677.png',
+                fit: BoxFit.cover,width: double.infinity,height: size.height * 0.4),
+              // Image.network(
+              //   AppAssets.homePageBanner,
+              //   width: double.infinity,
+              //   height: size.height * 0.4,
+              //   fit: BoxFit.cover,
+              // ),
+              Opacity(
+                opacity: 0.5,
+                child: Container(
+                  color: Colors.black,
+                  width: double.infinity,
+                  height: size.height * 0.4,
+                ),
               ),
-              SizedBox(
-                height: 350,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    //dummyProducts جايه من ملف ال product هى من خارج الكلاس
-                    children: dummyProducts
-                        .map((e) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListHomeItem(
-                                product: e,
-                              ),
-                            ))
-                        .toList()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                child: Text(
+                  'Street Cloths',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
               )
             ],
           ),
-        ),
+          const SizedBox(
+            height: 6,
+          ),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeaderOfList(
+                    title: 'Sale',
+                    discreption: 'Super Summer Sale',
+                    context: context),
+                SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  height: size.height*0.3,
+                  child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      //dummyProducts جايه من ملف ال product هى من خارج الكلاس
+                      children: dummyProducts
+                          .map((e) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListHomeItem(
+                                  product: e,
+                                ),
+                              ))
+                          .toList()),
+                ),_buildHeaderOfList(
+                    title: 'New',
+                    discreption: 'You\'v never seen before',
+                    context: context),
+                SizedBox(
+                  height: 2,
+                ),
+                SizedBox(
+                  height:size.height*0.3,
+                  child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      //dummyProducts جايه من ملف ال product هى من خارج الكلاس
+                      children: dummyProducts
+                          .map((e) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListHomeItem(
+                          product: e,
+                        ),
+                      ))
+                          .toList()),
+                )
+              ],
+            ),
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }
