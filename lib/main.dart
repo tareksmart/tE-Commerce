@@ -1,7 +1,9 @@
+import 'package:ecommerce/services/auth.dart';
 import 'package:ecommerce/utilities/router.dart';
 import 'package:ecommerce/utilities/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,39 +17,42 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'E commerce',
-      theme: ThemeData(
-        primaryColor:const Color(0xFFDB3022),
-        buttonTheme: ButtonThemeData(
-          buttonColor: const Color(0xFFDB3022),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+    return Provider<Authbase>(
+      create: (_)=>Auth(),
+      child: MaterialApp(
+        title: 'E commerce',
+        theme: ThemeData(
+          primaryColor:const Color(0xFFDB3022),
+          buttonTheme: ButtonThemeData(
+            buttonColor: const Color(0xFFDB3022),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
+          scaffoldBackgroundColor: const Color(0xFFE5E5E5),
+          inputDecorationTheme: InputDecorationTheme(
+              labelStyle: Theme.of(context).textTheme.subtitle1,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(color: Colors.blueGrey),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(color: Colors.blueGrey),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(color: Colors.red),
+              )),
         ),
-        scaffoldBackgroundColor: const Color(0xFFE5E5E5),
-        inputDecorationTheme: InputDecorationTheme(
-            labelStyle: Theme.of(context).textTheme.subtitle1,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: Colors.blueGrey),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: Colors.red),
-            )),
+        onGenerateRoute: onGenerate,
+        initialRoute: AppRoutes.logIn,
+        home: Container(),
       ),
-      onGenerateRoute: onGenerate,
-      initialRoute: AppRoutes.logIn,
-      home: Container(),
     );
   }
 }
