@@ -21,13 +21,13 @@ class _AuthPageState extends State<AuthPage> {
   final _passwordController = TextEditingController();
   final _emailFocusNode = FocusNode();
   final _passFocusNode = FocusNode();
-  dynamic _authType = AuthFormType;
+ // dynamic _authType = AuthFormType;
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<Authbase>(context);
     return ChangeNotifierProvider(
-      create: (context) => AuthController(auth: auth),
+      create: (_) => AuthController(auth: auth),
       child: Scaffold(
         resizeToAvoidBottomInset:
             false /*تجنب تجاوز القاع بسبب ظهور لوحةالمفاتيح*/,
@@ -43,7 +43,7 @@ class _AuthPageState extends State<AuthPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _authType == AuthFormType.login ? logIn : register,
+                    authController.authFormType == AuthFormType.login ? logIn : register,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const SizedBox(
@@ -55,7 +55,7 @@ class _AuthPageState extends State<AuthPage> {
                         FocusScope.of(context).requestFocus(_passFocusNode),
                     textInputAction: TextInputAction.next,
                     controller: _emailController,
-                    onChanged:(val)=> authController.updateEmail(val),
+                    onChanged: authController.updateEmail,
                     validator: (val) =>
                         val!.isEmpty ? 'Please Enter Your Email' : null,
                     decoration: const InputDecoration(
@@ -67,11 +67,12 @@ class _AuthPageState extends State<AuthPage> {
                   TextFormField(
                     focusNode: _passFocusNode,
                     controller: _passwordController,
-                    onChanged: authController.updatePassword,
+                    onChanged: authController.updatePassword,//الدالة بتاخد email كقيمة onChanged بها قيمة فالكومبيلر بيظبط قيمة onChanged ويمررها الى updatePassword
                     validator: (val) =>
                         val!.isEmpty ? 'Please enter password' : null,
                     decoration: const InputDecoration(
                         hintText: 'enter passowrd', labelText: 'password'),
+                    obscureText: true,
                   ),
                   const SizedBox(
                     height: 16,
@@ -79,7 +80,7 @@ class _AuthPageState extends State<AuthPage> {
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
-                      child: Text(_authType == AuthFormType.login
+                      child: Text(authController.authFormType  == AuthFormType.login
                           ? 'Forgot Your Password?'
                           : ''),
                       onTap: () {},
@@ -88,20 +89,20 @@ class _AuthPageState extends State<AuthPage> {
                   MainButton(
                       onTap: () {
                         if (_globalKey.currentState!.validate()) {
-                          debugPrint('${authController.updatePassword}');
-                          debugPrint('${authController.updateEmail}');
-                          Navigator.of(context)
-                              .pushNamed(AppRoutes.bottomNavBar);
+                          print('${authController.email}');
+                          debugPrint('${authController.password}');
+                         // Navigator.of(context)
+                            //  .pushNamed(AppRoutes.bottomNavBar);
                         }
                       },
-                      text: _authType == AuthFormType.login ? logIn : register),
+                      text: authController.authFormType  == AuthFormType.login ? logIn : register),
                   const SizedBox(
                     height: 16,
                   ),
                   Align(
                       alignment: Alignment.center,
                       child: InkWell(
-                          child: Text(_authType == AuthFormType.login
+                          child: Text(authController.authFormType  == AuthFormType.login
                               ? 'Don\'t have an account?Register'
                               : 'Have an Account login'),
                           onTap: () {
@@ -120,7 +121,7 @@ class _AuthPageState extends State<AuthPage> {
                   Align(
                     alignment: Alignment.center,
                     child: Text(
-                      _authType == AuthFormType.login
+                      authController.authFormType  == AuthFormType.login
                           ? 'Or Login With Social Account'
                           : 'Or Register With Social Account',
                       style: Theme.of(context).textTheme.subtitle1,

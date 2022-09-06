@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider<Authbase>(
+    return Provider<Authbase>(//بروفيدر من authBase
       create: (_)=>Auth(),
       child: MaterialApp(
         title: 'E commerce',

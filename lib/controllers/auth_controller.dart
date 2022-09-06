@@ -28,6 +28,8 @@ class AuthController with ChangeNotifier {
         this.email; //لو ال ايميل جاى فاضى من بره حط قيمة الايميل الموجود بالكونستركتور
     this.password = password ?? this.password;
     this.authFormType = authFormType ?? this.authFormType;
+
     notifyListeners();
+
   }
 }
