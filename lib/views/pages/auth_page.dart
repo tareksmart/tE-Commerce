@@ -22,6 +22,20 @@ class _AuthPageState extends State<AuthPage> {
   final _emailFocusNode = FocusNode();
   final _passFocusNode = FocusNode();
  // dynamic _authType = AuthFormType;
+  Future<void> _submit(AuthController model)async{
+    try{
+      await model.submit();
+      if(!mounted)return;//ليه علاقة بربط ال state بال buildcontext لازم تكون  ال mount بfalse
+      Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.bottomNavBar, (route) => false);
+    }
+    catch(e){
+      showDialog(context: context, builder: (_)=>AlertDialog(
+        title: Text('Error',style: Theme.of(context).textTheme.headline4,),
+        content: Text(e.toString(),style:Theme.of(context).textTheme.subtitle2),
+        actions: [TextButton(onPressed: ()=>Navigator.of(context).pop(), child: Text('Ok'))],
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +103,7 @@ class _AuthPageState extends State<AuthPage> {
                   MainButton(
                       onTap: () {
                         if (_globalKey.currentState!.validate()) {
-                          print('${authController.email}');
-                          debugPrint('${authController.password}');
-                         // Navigator.of(context)
-                            //  .pushNamed(AppRoutes.bottomNavBar);
+                         _submit(authController);
                         }
                       },
                       text: authController.authFormType  == AuthFormType.login ? logIn : register),
@@ -109,13 +120,7 @@ class _AuthPageState extends State<AuthPage> {
                             _emailController.clear();
                             _passwordController.clear();
                             _globalKey.currentState!.reset();
-                            setState(() {
-                              if (_authType == AuthFormType.register) {
-                                _authType = AuthFormType.login;
-                              } else {
-                                _authType = AuthFormType.register;
-                              }
-                            });
+                        authController.toggleFormType();
                           })),
                   Spacer(),
                   Align(
