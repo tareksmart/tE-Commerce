@@ -50,8 +50,8 @@ class MyApp extends StatelessWidget {
               )),
         ),
         onGenerateRoute: onGenerate,
-        initialRoute: AppRoutes.logIn,
-        home: Container(),
+        initialRoute: AppRoutes.landingPageRoute,
+
       ),
     );
   }

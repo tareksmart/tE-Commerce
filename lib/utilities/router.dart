@@ -17,6 +17,7 @@ Route<dynamic> onGenerate(RouteSettings settings){
     case AppRoutes.bottomNavBar:
       return MaterialPageRoute(builder: (_)=>BottomNavBar());
     case AppRoutes.landingPageRoute:
+      return MaterialPageRoute(builder: (_)=>LandingPage(),);
       default :
         return MaterialPageRoute(builder: (_)=>LandingPage(),);
   }
