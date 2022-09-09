@@ -5,6 +5,7 @@ abstract class Authbase {
   Future<User?> signUpWithEmailAndPassword(String email, String password);
   User? get currentUser;
   Stream<User?> authstateChanges();
+  Future<void>signOut();
 }
 
 class Auth implements Authbase {
@@ -22,7 +23,7 @@ class Auth implements Authbase {
     final userAuth = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
 
-    return userAuth.user;//ال user لم تظهر الا لما عملنا async and await
+    return userAuth.user; //ال user لم تظهر الا لما عملنا async and await
   }
 
   @override
@@ -33,4 +34,9 @@ class Auth implements Authbase {
   @override
   // TODO: implement currentUser
   User? get currentUser => _firebaseAuth.currentUser;
+
+  @override
+  Future<void> signOut() async{
+    await _firebaseAuth.signOut();
+  }
 }

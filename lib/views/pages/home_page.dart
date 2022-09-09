@@ -1,6 +1,8 @@
+import 'package:ecommerce/services/auth.dart';
 import 'package:ecommerce/utilities/app_assets.dart';
 import 'package:ecommerce/views/widgets/list_item_home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/product.dart';
 
@@ -47,6 +49,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final auth=Provider.of<Authbase>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -78,7 +81,10 @@ class HomePage extends StatelessWidget {
                       .headline4!
                       .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-              )
+              ),
+              SizedBox(width: 5,)
+              ,TextButton(onPressed: ()async=>await auth.signOut(),
+                child: Text('sign out'),),
             ],
           ),
           const SizedBox(
