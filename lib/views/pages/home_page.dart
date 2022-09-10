@@ -1,4 +1,5 @@
 import 'package:ecommerce/services/auth.dart';
+import 'package:ecommerce/services/database_controller.dart';
 import 'package:ecommerce/utilities/app_assets.dart';
 import 'package:ecommerce/views/widgets/list_item_home.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final auth=Provider.of<Authbase>(context);
+    final database=Provider.of<Database>(context);
+    //final auth=Provider.of<Authbase>(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -83,8 +86,8 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 5,)
-              ,TextButton(onPressed: ()async=>await auth.signOut(),
-                child: Text('sign out'),),
+              // ,TextButton(onPressed: ()async=>await auth.signOut(),
+              //   child: Text('sign out'),),
             ],
           ),
           const SizedBox(
@@ -103,17 +106,29 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: size.height*0.3,
-                  child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      //dummyProducts جايه من ملف ال product هى من خارج الكلاس
-                      children: dummyProducts
-                          .map((e) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ListHomeItem(
-                                  product: e,
-                                ),
-                              ))
-                          .toList()),
+                  child: StreamBuilder<List<Product>>(
+                    stream: database.productStream() ,
+                    builder:(context,snapshot) {
+                      if(snapshot.connectionState==ConnectionState.active) {
+                        final products=snapshot.data;
+                        if(products!=null||products!.isEmpty){
+                          return Center(child: Text('no data is available'));
+                        }
+                        return ListView(
+                        scrollDirection: Axis.horizontal,
+                        //dummyProducts جايه من ملف ال product هى من خارج الكلاس
+                        children: products
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListHomeItem(
+                                    product: e,
+                                  ),
+                                ))
+                            .toList(),);
+                      }
+                      return Center(child: CircularProgressIndicator(),);
+                    },
+                  ),
                 ),_buildHeaderOfList(
                     title: 'New',
                     discreption: 'You\'v never seen before',

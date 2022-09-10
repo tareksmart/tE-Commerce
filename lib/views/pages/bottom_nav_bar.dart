@@ -1,4 +1,5 @@
 import 'package:ecommerce/views/pages/home_page.dart';
+import 'package:ecommerce/views/pages/log_out.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -25,7 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: Text('Favorite'),
       ),
       Container(
-        child: Text('Profile'),
+        child: LogOut(),
       ),
     ];
   }
