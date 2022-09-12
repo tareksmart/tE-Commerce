@@ -121,7 +121,7 @@ class _AuthPageState extends State<AuthPage> {
                       },
                       text: authController.authFormType == AuthFormType.login
                           ? logIn
-                          : register),
+                          : register,hasCircularBorder: true,),
                   const SizedBox(
                     height: 16,
                   ),

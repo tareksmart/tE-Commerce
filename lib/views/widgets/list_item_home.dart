@@ -5,14 +5,25 @@ import 'package:flutter/material.dart';
 
 class ListHomeItem extends StatelessWidget {
   final Product product;
-  const ListHomeItem({Key? key, required this.product}) : super(key: key);
+  final bool isNew;
+  final bool isFavorite;
+  final VoidCallback? addToFavorite;
+
+  const ListHomeItem(
+      {Key? key,
+      required this.product,
+      required this.isNew,
+      this.addToFavorite,
+      this.isFavorite = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return InkWell(
       //rootNavigator: true عند الاتصال بابعد route اللى هو فى ال main ongenerate
       onTap: () => Navigator.of(context, rootNavigator: true)
-          .pushNamed(AppRoutes.productDetails,arguments: product),
+          .pushNamed(AppRoutes.productDetails, arguments: product),
       child: SizedBox(
         height: 300,
         child: DecoratedBox(
@@ -37,12 +48,12 @@ class ListHomeItem extends StatelessWidget {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Colors.red),
+                              color: isNew ? Colors.grey : Colors.red),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Text(
-                                '${product.discountValue}%',
+                                isNew ? 'New' : '${product.discountValue}%',
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -59,6 +70,21 @@ class ListHomeItem extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
+              Positioned(left: size.width*0.38,
+                  bottom: size.height*0.12,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [BoxShadow(blurRadius: 5,color: Colors.grey,spreadRadius: 3)]
+                    ),
+                child: CircleAvatar(backgroundColor: Colors.white,radius: 20,
+                  child: InkWell(onTap: addToFavorite,
+                    child: isFavorite
+                        ? const Icon(Icons.favorite_outline,size: 20,)
+                        : const Icon(Icons.favorite,size: 20,),
+                  ),
+                ),
+              )),
               Text(
                 '${product.category}',
                 style: Theme.of(context)

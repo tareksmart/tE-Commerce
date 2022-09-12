@@ -15,7 +15,7 @@ class LogOut extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: MainButton(onTap: ()=>auth.signOut(), text: 'Log out')
+            child: MainButton(onTap: ()=>auth.signOut(), text: 'Log out',hasCircularBorder: true,)
           )
         ],
       ),

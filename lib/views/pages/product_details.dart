@@ -1,3 +1,4 @@
+import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/product.dart';
@@ -43,7 +44,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
@@ -57,7 +59,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         height: 50,
                         width: 50,
                         child: DecoratedBox(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Colors.white),
                           child: Icon(
                             widget._isFavorite
@@ -98,10 +100,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                         .textTheme
                         .subtitle1!
                         .copyWith(color: Colors.grey.withOpacity(0.9)),
-                  ),const SizedBox(
+                  ),
+                  const SizedBox(
                     height: 8,
                   ),
-                  Text('this is dummy disc kkkkkkkkkk knkdkweqfke hidfqhweuifhuhqeu udhuewqh uhuqh ufqeuheuhueqhfu hu3fhue')
+                  const Text(
+                      'this is dummy disc kkkkkkkkkk knkdkweqfke hidfqhweuifhuhqeu udhuewqh uhuqh ufqeuheuhueqhfu hu3fhue'),
+                  const SizedBox(height: 8,),
+                  MainButton(onTap: (){}, text: 'add to cart', hasCircularBorder: true)
                 ],
               ),
             ),

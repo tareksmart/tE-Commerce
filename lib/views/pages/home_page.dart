@@ -127,6 +127,7 @@ class HomePage extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: ListHomeItem(
                                       product: e,
+                                      isNew: false,
                                     ),
                                   ))
                               .toList(),
@@ -166,6 +167,7 @@ class HomePage extends StatelessWidget {
                                       padding: const EdgeInsets.all(8.0),
                                       child: ListHomeItem(
                                         product: e,
+                                        isNew: true,
                                       ),
                                     ))
                                 .toList());
