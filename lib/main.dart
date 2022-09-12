@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
       create: (_)=>Auth(),
       child: MaterialApp(
         title: 'E commerce',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          appBarTheme: const AppBarTheme(elevation: 2),
           primaryColor:const Color(0xFFDB3022),
           buttonTheme: ButtonThemeData(
             buttonColor: const Color(0xFFDB3022),

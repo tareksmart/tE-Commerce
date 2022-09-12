@@ -1,5 +1,6 @@
 import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/utilities/app_assets.dart';
+import 'package:ecommerce/utilities/routes.dart';
 import 'package:flutter/material.dart';
 
 class ListHomeItem extends StatelessWidget {
@@ -8,8 +9,11 @@ class ListHomeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      SizedBox(
+    return InkWell(
+      //rootNavigator: true عند الاتصال بابعد route اللى هو فى ال main ongenerate
+      onTap: () => Navigator.of(context, rootNavigator: true)
+          .pushNamed(AppRoutes.productDetails,arguments: product),
+      child: SizedBox(
         height: 300,
         child: DecoratedBox(
           decoration: BoxDecoration(),
@@ -20,9 +24,8 @@ class ListHomeItem extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-
-                     child: Image.network(product.imgUrl,
-                         fit: BoxFit.fill, width: 130, height: 100),
+                    child: Image.network(product.imgUrl,
+                        fit: BoxFit.fill, width: 130, height: 100),
                   ),
                   Align(
                     alignment: Alignment.topLeft,
@@ -85,7 +88,7 @@ class ListHomeItem extends StatelessWidget {
             ],
           ),
         ),
-      );
-
+      ),
+    );
   }
 }
