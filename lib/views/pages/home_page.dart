@@ -107,10 +107,10 @@ class HomePage extends StatelessWidget {
                     discreption: 'Super Summer Sale',
                     context: context),
                 SizedBox(
-                  height: 8,
+                  height: 5,
                 ),
                 SizedBox(
-                  height: size.height * 0.3,
+                  height: size.height * 0.5,
                   child: StreamBuilder<List<Product>>(
                     stream: database.salesProductStream(),
                     builder: (context, snapshot) {
@@ -147,7 +147,7 @@ class HomePage extends StatelessWidget {
                   height: 2,
                 ),
                 SizedBox(
-                  height: size.height * 0.3,
+                  height: size.height * 0.5,
                   child: StreamBuilder<List<Product>>(
                     stream: database.newProductStream(),
                     builder: (context, snapshot) {
