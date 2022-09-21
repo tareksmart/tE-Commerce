@@ -3,9 +3,13 @@ import 'package:ecommerce/models/product.dart';
 import 'package:ecommerce/services/firestore_services.dart';
 import 'package:ecommerce/utilities/api_path.dart';
 
+import '../models/user_data.dart';
+
 abstract class Database {
   Stream<List<Product>> salesProductStream();
   Stream<List<Product>> newProductStream();
+  Future<void> setDataUser(UserData userData);
+
 }
 
 class FireStorDatabase implements Database {
@@ -28,4 +32,13 @@ class FireStorDatabase implements Database {
         builder: (data, documentId) => Product.fromMap(data!, documentId),
         queryBuilder: (query)=>query.where('discountValue',isEqualTo: 0));
   }
+
+  @override
+  Future<void> setDataUser(UserData userData) async{
+   await _service.setData(path: ApiPath.user(userData.uid), data: userData.toMap());
+  }
+
+  @override
+  // TODO: implement database
+  Database get database => throw UnimplementedError();
 }

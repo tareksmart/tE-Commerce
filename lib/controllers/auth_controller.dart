@@ -1,14 +1,18 @@
+import 'package:ecommerce/models/user_data.dart';
 import 'package:ecommerce/services/auth.dart';
 import 'package:ecommerce/utilities/enum.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+
+import '../services/database_controller.dart';
+import '../utilities/constants.dart';
 
 class AuthController with ChangeNotifier {
   final Authbase auth;
   String email;
   String password;
   AuthFormType authFormType;
-
+  final Database database = FireStorDatabase('123');
   AuthController(
       {required this.auth,
       this.email = '',
@@ -36,6 +40,9 @@ class AuthController with ChangeNotifier {
         await auth.loginWithEmailAndPassword(email, password);
       } else {
         await auth.signUpWithEmailAndPassword(email, password);
+        await database.setDataUser(
+          UserData(uid: documentIdFromLocalData(), email: email),
+        );
       }
     } catch (e) {
       rethrow;
