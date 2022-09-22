@@ -51,6 +51,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     final database = Provider.of<Database>(context);
     //final auth=Provider.of<Authbase>(context);
 
@@ -106,14 +107,16 @@ class HomePage extends StatelessWidget {
                     title: 'Sale',
                     discreption: 'Super Summer Sale',
                     context: context),
-                SizedBox(
+                const SizedBox(
                   height: 5,
+
                 ),
                 SizedBox(
                   height: size.height * 0.5,
                   child: StreamBuilder<List<Product>>(
                     stream: database.salesProductStream(),
                     builder: (context, snapshot) {
+
                       if (snapshot.connectionState == ConnectionState.active) {
                         final products = snapshot.data;
                         if (products == null) {
