@@ -1,8 +1,10 @@
 import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/services/database_controller.dart';
 import 'package:ecommerce/utilities/app_assets.dart';
 import 'package:ecommerce/utilities/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class ListHomeItem extends StatelessWidget {
   final Product product;
@@ -21,10 +23,11 @@ class ListHomeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final database=Provider.of<Database>(context);
     return InkWell(
       //rootNavigator: true عند الاتصال بابعد route اللى هو فى ال main ongenerate
       onTap: () => Navigator.of(context, rootNavigator: true)
-          .pushNamed(AppRoutes.productDetails, arguments: product),
+          .pushNamed(AppRoutes.productDetails, arguments: {'product':product,'database':database}),
       child: DecoratedBox(
         decoration: const BoxDecoration(),
         child: Stack(

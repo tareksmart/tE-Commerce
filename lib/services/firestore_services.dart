@@ -32,7 +32,7 @@ to a new value using the convert function, and emits the result.*/
   }
 
   Stream<List<T>> collectionStream<T>(
-      {required path,
+      {required String path,
       required T Function(Map<String, dynamic>? data, String documentId)
           builder,
       Query Function(Query query)? queryBuilder,

@@ -4,8 +4,9 @@ import 'package:ecommerce/views/pages/bottom_nav_bar.dart';
 import 'package:ecommerce/views/pages/home_page.dart';
 import 'package:ecommerce/views/pages/landing_page.dart';
 import 'package:ecommerce/views/pages/product_details.dart';
-
+import 'package:ecommerce/services/database_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/product.dart';
 import '../views/pages/auth_page.dart';
@@ -23,9 +24,11 @@ Route<dynamic> onGenerate(RouteSettings settings){
       return MaterialPageRoute(builder: (_)=>LandingPage(),settings: settings);
     case AppRoutes.productDetails:
       {
-        final product =settings.arguments as Product;
-        return MaterialPageRoute(
-            builder: (_) => ProductDetails(product: product), settings: settings);
+        final args=settings.arguments as Map<String,dynamic>;
+        final product =args['product'];
+        final database=args['database'];
+        return MaterialPageRoute(//نسيت ماعمل <Database> لم بحفظ المبيعات
+            builder: (_) =>Provider<Database>.value(value: database,child: ProductDetails(product: product),),);
       }
       default :
         return MaterialPageRoute(builder: (_)=>LandingPage(),settings: settings);

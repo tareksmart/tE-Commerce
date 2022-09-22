@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utilities/strings.dart';
+import '../widgets/main_dialog.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -30,21 +31,8 @@ class _AuthPageState extends State<AuthPage> {
       // Navigator.of(context)
       //     .pushNamedAndRemoveUntil(AppRoutes.bottomNavBar, (route) => false);
     } catch (e) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: Text(
-                  'Error',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                content: Text(e.toString(),
-                    style: Theme.of(context).textTheme.subtitle2),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Ok'))
-                ],
-              ));
+     MainDialog(context: context,content: e.toString(),title: 'Error',
+     actions: [{'ok':() => Navigator.of(context).pop()}]).showAlertDialog();
     }
   }
 

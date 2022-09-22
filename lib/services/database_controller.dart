@@ -28,7 +28,7 @@ class FireStorDatabase implements Database {
   @override
   Stream<List<Product>> newProductStream() {
     return _service.collectionStream(
-        path: ApiPath.products,
+        path: ApiPath.products(),
         builder: (data, documentId) => Product.fromMap(data!, documentId),
         queryBuilder: (query) => query.where('discountValue', isEqualTo: 0));
   }
@@ -41,6 +41,6 @@ class FireStorDatabase implements Database {
 
   @override
   Future<void> addToCart(AddToCartModel product) async {
-    await _service.setData(path: ApiPath.addToCart(userId, product.id), data: product.toMap());
+     await _service.setData(path: ApiPath.addToCart(userId, product.id), data: product.toMap());
   }
 }
