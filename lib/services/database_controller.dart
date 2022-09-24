@@ -8,6 +8,7 @@ import 'package:ecommerce/utilities/api_path.dart';
 abstract class Database {
   Stream<List<Product>> salesProductStream();
   Stream<List<Product>> newProductStream();
+  Stream<List<AddToCartModel>> myProductsCart();
   Future<void> setUserData(UserData userData);
   Future<void> addToCart(AddToCartModel addToCartModel);
 }
@@ -41,6 +42,15 @@ class FireStorDatabase implements Database {
 
   @override
   Future<void> addToCart(AddToCartModel product) async {
-     await _service.setData(path: ApiPath.addToCart(userId, product.id), data: product.toMap());
+    await _service.setData(
+        path: ApiPath.addToCart(userId, product.id), data: product.toMap());
+  }
+
+  @override
+  Stream<List<AddToCartModel>> myProductsCart() {
+    return _service.collectionStream(
+      path: ApiPath.MyProductsCart(userId),
+      builder: (data, documentId) => AddToCartModel.fromMap(data!, documentId),
+    );
   }
 }

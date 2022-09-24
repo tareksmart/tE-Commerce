@@ -25,8 +25,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     final database = Provider.of<Database>(context,listen: false);
     try {
       final addToCartProduct = AddToCartModel(
-          productId: widget.product.id,
-          id: documentIdFromLocalData(),
+          productId: widget.product.id,//كود المنتج نفسه
+          id: documentIdFromLocalData(),//كود فريد للdocument
           title: widget.product.title,
           price: widget.product.price,
           imgUrl: widget.product.imgUrl,
@@ -34,7 +34,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           size: dropDownValue);
       await database.addToCart(addToCartProduct);
     } catch (e) {
-      MainDialog(context: context, content: e.toString(), title: 'Error')
+      MainDialog(context: context, content: e.toString(), title: 'Error',actions: [{'ok':()=>Navigator.of(context).pop()}])
           .showAlertDialog();
     }
   }

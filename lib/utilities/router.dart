@@ -28,6 +28,7 @@ Route<dynamic> onGenerate(RouteSettings settings){
         final product =args['product'];
         final database=args['database'];
         return MaterialPageRoute(//نسيت ماعمل <Database> لم بحفظ المبيعات
+          //provider.value لان شاشة product details لايوجد فوقيها provider احنا هنا بنمرر instance من ال provider على شكل provider.value
             builder: (_) =>Provider<Database>.value(value: database,child: ProductDetails(product: product),),);
       }
       default :
