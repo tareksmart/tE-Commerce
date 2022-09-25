@@ -16,7 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final _controller = PersistentTabController();
   List<Widget> _buildScreens() {
     return [
-       HomePage(),
+      HomePage(),
       CartPage(),
       Container(
         child: Text('Bag'),
