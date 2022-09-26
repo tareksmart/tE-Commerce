@@ -65,12 +65,7 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: size.height * 0.4),
-              // Image.network(
-              //   AppAssets.homePageBanner,
-              //   width: double.infinity,
-              //   height: size.height * 0.4,
-              //   fit: BoxFit.cover,
-              // ),
+
               Opacity(
                 opacity: 0.5,
                 child: Container(

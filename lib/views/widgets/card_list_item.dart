@@ -18,37 +18,70 @@ class CartListItem extends StatelessWidget {
             width: 125,
             height: 125,
           ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    cartItem.title,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  const SizedBox(width: 20,),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.more_vert),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text('Color:${cartItem.color}'),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text('Size:${cartItem.size}')
-                ],
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox.shrink(),
-                  Text('Price:${cartItem.price}')],
-              )
-            ],
+          const SizedBox(width: 8,),
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      cartItem.title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.more_vert),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Color:',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: Colors.grey)),
+                          TextSpan(
+                              text: cartItem.color,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: Colors.black))
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                              text: 'Size:',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: Colors.grey)),
+                          TextSpan(text: cartItem.size)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [SizedBox.shrink(), Text('Price:${cartItem.price}')],
+                )
+              ],
+            ),
           ),
         ],
       ),
