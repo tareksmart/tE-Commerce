@@ -36,11 +36,13 @@ class CartPage extends StatelessWidget {
                       'My Cart',
                       style: Theme.of(context).textTheme.headline5,
                     ),
+                   const SizedBox(height: 16,),
                     if(cartItems==null&&cartItems!.isEmpty)
                       const Center(child: Text('no items available'),) ,
-
+                    const SizedBox(height: 8,),
                     ListView.builder(
                       shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: cartItems!.length,
                         itemBuilder: (context, int index) {
                           return CartListItem(cartItem: cartItems[index]);

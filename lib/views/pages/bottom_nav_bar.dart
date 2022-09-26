@@ -16,8 +16,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final _controller = PersistentTabController();
   List<Widget> _buildScreens() {
     return [
-      HomePage(),
       CartPage(),
+      HomePage(),
+
       Container(
         child: Text('Bag'),
       ),
@@ -33,14 +34,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: "Home",
-        activeColorPrimary: Theme.of(context).primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
+
         icon: Icon(CupertinoIcons.shopping_cart),
         title: "Cart",
+        activeColorPrimary: Theme.of(context).primaryColor,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.home),
+        title: "Home",
         activeColorPrimary: Theme.of(context).primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

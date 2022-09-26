@@ -10,20 +10,22 @@ class CartListItem extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.network(
             cartItem.imgUrl,
-            fit: BoxFit.cover,
-            width: 150,
-            height: 150,
+            fit: BoxFit.fill,
+            width: 125,
+            height: 125,
           ),
           Column(
             children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     cartItem.title,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   const SizedBox(width: 20,),
                   IconButton(
@@ -41,7 +43,7 @@ class CartListItem extends StatelessWidget {
                   Text('Size:${cartItem.size}')
                 ],
               ),
-              Row(
+              Row(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox.shrink(),
                   Text('Price:${cartItem.price}')],
