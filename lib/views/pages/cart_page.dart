@@ -1,6 +1,7 @@
 import 'package:ecommerce/models/addToCartModel.dart';
 import 'package:ecommerce/services/database_controller.dart';
 import 'package:ecommerce/views/widgets/card_list_item.dart';
+import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,16 +10,17 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final database=Provider.of<Database>(context);
+    final database = Provider.of<Database>(context);
     return SafeArea(
       child: StreamBuilder<List<AddToCartModel>>(
         stream: database.myProductsCart(),
-        builder: (context,snapShot){
-          if(snapShot.connectionState==ConnectionState.active){
-            final cartItems=snapShot.data;
+        builder: (context, snapShot) {
+          if (snapShot.connectionState == ConnectionState.active) {
+            final cartItems = snapShot.data;
             return SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -26,7 +28,8 @@ class CartPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SizedBox.shrink(),
-                        IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+                        IconButton(
+                            onPressed: () {}, icon: const Icon(Icons.search)),
                       ],
                     ),
                     const SizedBox(
@@ -36,28 +39,66 @@ class CartPage extends StatelessWidget {
                       'My Cart',
                       style: Theme.of(context).textTheme.headline5,
                     ),
-                   const SizedBox(height: 16,),
-                    if(cartItems==null&&cartItems!.isEmpty)
-                      const Center(child: Text('no items available'),) ,
-                    const SizedBox(height: 8,),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    if (cartItems == null && cartItems!.isEmpty)
+                      const Center(
+                        child: Text('no items available'),
+                      ),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: cartItems!.length,
                         itemBuilder: (context, int index) {
                           return CartListItem(cartItem: cartItems[index]);
-                        })
+                        }),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total Amount:',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(color: Colors.grey),
+                          ),
+                          Text(
+                            '1250\$',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    MainButton(
+                        onTap: () {},
+                        text: 'CHECK OUT',
+                        hasCircularBorder: true),
+                    const SizedBox(
+                      height: 32,
+                    )
                   ],
                 ),
               ),
             );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
-          else {
-            return  const Center(child: CircularProgressIndicator(),);
-          }
-
         },
-
       ),
     );
   }

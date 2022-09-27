@@ -12,13 +12,18 @@ class CartListItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.network(
-            cartItem.imgUrl,
-            fit: BoxFit.fill,
-            width: 125,
-            height: 125,
+          ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            child: Image.network(
+              cartItem.imgUrl,
+              fit: BoxFit.fill,
+              width: 125,
+              height: 125,
+            ),
           ),
-          const SizedBox(width: 8,),
+          const SizedBox(
+            width: 8,
+          ),
           Expanded(
             child: Column(
               children: [
@@ -34,7 +39,7 @@ class CartListItem extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.more_vert),
+                      icon: const Icon(Icons.more_vert),
                     ),
                   ],
                 ),
@@ -58,7 +63,7 @@ class CartListItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Text.rich(
@@ -76,9 +81,43 @@ class CartListItem extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [SizedBox.shrink(), Text('Price:${cartItem.price}')],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            child: IconButton(
+                                onPressed: () {}, icon: const Icon(Icons.minimize_outlined))),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        const Text('1'),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        CircleAvatar(
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                            child: Align(alignment: Alignment.topCenter,
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.add)),
+                            )),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${cartItem.price}\$',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
