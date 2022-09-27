@@ -4,4 +4,5 @@ class AppRoutes{
   static const String homePage='/homePage';
   static const String bottomNavBar='/bottomBar';
   static const String productDetails='/productDetails';
+  static const String checkOut='/checkOut';
 }

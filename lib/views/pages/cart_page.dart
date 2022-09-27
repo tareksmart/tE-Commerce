@@ -1,13 +1,29 @@
 import 'package:ecommerce/models/addToCartModel.dart';
 import 'package:ecommerce/services/database_controller.dart';
+import 'package:ecommerce/utilities/routes.dart';
 import 'package:ecommerce/views/widgets/card_list_item.dart';
 import 'package:ecommerce/views/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  int total=0;
+  @override
+  void didChangeDependencies() async {
+    final myProducts=await Provider.of<Database>(context).myProductsCart().first;
+    setState(() {
+      myProducts.forEach((element) {total+=element.price;});
+    });
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<Database>(context);
@@ -73,7 +89,7 @@ class CartPage extends StatelessWidget {
                                 .copyWith(color: Colors.grey),
                           ),
                           Text(
-                            '1250\$',
+                            '$total\$',
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ],
@@ -83,7 +99,10 @@ class CartPage extends StatelessWidget {
                       height: 8,
                     ),
                     MainButton(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context,rootNavigator: true).pushNamed(AppRoutes.checkOut,
+                          );
+                        },
                         text: 'CHECK OUT',
                         hasCircularBorder: true),
                     const SizedBox(
