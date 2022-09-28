@@ -11,6 +11,7 @@ abstract class Database {
   Stream<List<AddToCartModel>> myProductsCart();
   Future<void> setUserData(UserData userData);
   Future<void> addToCart(AddToCartModel addToCartModel);
+
 }
 
 class FireStorDatabase implements Database {
@@ -53,4 +54,6 @@ class FireStorDatabase implements Database {
       builder: (data, documentId) => AddToCartModel.fromMap(data!, documentId),
     );
   }
+
+
 }

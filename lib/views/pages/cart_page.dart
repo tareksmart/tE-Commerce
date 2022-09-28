@@ -1,3 +1,4 @@
+import 'package:ecommerce/controllers/quantity_controller.dart';
 import 'package:ecommerce/models/addToCartModel.dart';
 import 'package:ecommerce/services/database_controller.dart';
 import 'package:ecommerce/utilities/routes.dart';
@@ -70,7 +71,9 @@ class _CartPageState extends State<CartPage> {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: cartItems!.length,
                         itemBuilder: (context, int index) {
-                          return CartListItem(cartItem: cartItems[index]);
+                          return ChangeNotifierProvider<QuantityController>(
+                            create:(context)=>QuantityController(newQuantity: 1,oldQuantity: 1),
+                          child: CartListItem(cartItem: cartItems[index]),) ;
                         }),
                     const SizedBox(
                       height: 16,

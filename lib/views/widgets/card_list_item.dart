@@ -1,12 +1,24 @@
+import 'package:ecommerce/controllers/quantity_controller.dart';
 import 'package:ecommerce/models/addToCartModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CartListItem extends StatelessWidget {
+class CartListItem extends StatefulWidget {
   final AddToCartModel cartItem;
   const CartListItem({Key? key, required this.cartItem}) : super(key: key);
 
   @override
+  State<CartListItem> createState() => _CartListItemState();
+}
+
+class _CartListItemState extends State<CartListItem> {
+  @override
   Widget build(BuildContext context) {
+    int quantity = widget.cartItem.quantity;
+
+    Future<void> _plusQuantity(int q) async {
+
+    }
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Row(
@@ -15,7 +27,7 @@ class CartListItem extends StatelessWidget {
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             child: Image.network(
-              cartItem.imgUrl,
+              widget.cartItem.imgUrl,
               fit: BoxFit.fill,
               width: 125,
               height: 125,
@@ -31,7 +43,7 @@ class CartListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      cartItem.title,
+                      widget.cartItem.title,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     const SizedBox(
@@ -55,7 +67,7 @@ class CartListItem extends StatelessWidget {
                                   .caption!
                                   .copyWith(color: Colors.grey)),
                           TextSpan(
-                              text: cartItem.color,
+                              text: widget.cartItem.color,
                               style: Theme.of(context)
                                   .textTheme
                                   .caption!
@@ -75,7 +87,7 @@ class CartListItem extends StatelessWidget {
                                   .textTheme
                                   .caption!
                                   .copyWith(color: Colors.grey)),
-                          TextSpan(text: cartItem.size)
+                          TextSpan(text: widget.cartItem.size)
                         ],
                       ),
                     ),
@@ -87,33 +99,43 @@ class CartListItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                            backgroundColor:
+                    Consumer<QuantityController>(
+                      builder:(context,quan,child){
+                        return Row(
+                          children: [
+                            CircleAvatar(
+                                backgroundColor:
                                 Theme.of(context).scaffoldBackgroundColor,
-                            child: IconButton(
-                                onPressed: () {}, icon: const Icon(Icons.minimize_outlined))),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        const Text('1'),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                            child: Align(alignment: Alignment.topCenter,
-                              child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.add)),
-                            )),
-                      ],
+                                child: IconButton(
+                                    onPressed: () {
+                                      quantity=quan.minusQuan(quantity, widget.cartItem.quantity);
+                                    },
+                                    icon: const Icon(Icons.minimize_outlined))),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            Text('$quantity'),
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            CircleAvatar(
+                                backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.add)),
+                                )),
+                          ],
+                        );
+                      }
+
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        '${cartItem.price}\$',
+                        '${widget.cartItem.price}\$',
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                     )
