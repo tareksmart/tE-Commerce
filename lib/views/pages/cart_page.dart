@@ -71,9 +71,9 @@ class _CartPageState extends State<CartPage> {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: cartItems!.length,
                         itemBuilder: (context, int index) {
-                          return ChangeNotifierProvider<QuantityController>(
-                            create:(context)=>QuantityController(newQuantity: 1,oldQuantity: 1),
-                          child: CartListItem(cartItem: cartItems[index]),) ;
+
+
+                          return CartListItem(cartItem: cartItems[index]);
                         }),
                     const SizedBox(
                       height: 16,
