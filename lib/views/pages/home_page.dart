@@ -104,14 +104,12 @@ class HomePage extends StatelessWidget {
                     context: context),
                 const SizedBox(
                   height: 5,
-
                 ),
                 SizedBox(
                   height: size.height * 0.5,
                   child: StreamBuilder<List<Product>>(
                     stream: database.salesProductStream(),
                     builder: (context, snapshot) {
-
                       if (snapshot.connectionState == ConnectionState.active) {
                         final products = snapshot.data;
                         if (products == null) {
@@ -141,7 +139,7 @@ class HomePage extends StatelessWidget {
                     title: 'New',
                     discreption: 'You\'v never seen before',
                     context: context),
-               const SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 SizedBox(
